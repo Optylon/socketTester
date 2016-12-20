@@ -16,11 +16,10 @@ var SocketTester = function(io, socketUrl, socketOptions){
 };
 
 /**
- * Creates connections, sets up listeners, and triggers events.
+ * Creates connections, sets up listeners.
  * @param  {array}   clients  Array of client objects
- * @param  {Function} done    Mocha done function
  */
-SocketTester.prototype.run = function(clients, done){
+SocketTester.prototype.setup = function(clients){
 
   var sub = function(clients, idx){
 
@@ -55,6 +54,13 @@ SocketTester.prototype.run = function(clients, done){
   };
 
   sub.call(this, clients, 0);
+}
+
+/**
+ * Triggers events.
+ * @param  {Function} done    Mocha done function
+ */
+SocketTester.prototype.test = function(done){
 
   if(done){
     setTimeout(function(){
@@ -62,7 +68,7 @@ SocketTester.prototype.run = function(clients, done){
       this.testConditions.forEach(function(test){
         try{
           test();
-        } 
+        }
         catch(e) {
           self.clearConnections();
           throw new Error(e);
@@ -75,6 +81,18 @@ SocketTester.prototype.run = function(clients, done){
     this.clearConnections();
   }
 };
+
+/**
+ * Creates connections, sets up listeners, and triggers events.
+ * Old function, maintained for backward compatibility.
+ * @param  {array}   clients  Array of client objects
+ * @param  {Function} done    Mocha done function
+ */
+SocketTester.prototype.run = function(clients, done){
+  this.setup(clients);
+  this.test(done);
+}
+
 
 /**
  * Checks if event is called with expected value
@@ -101,7 +119,7 @@ SocketTester.prototype.shouldBeCalledNTimes = function(n){
 };
 
 /**
- * Tests multiple calls of the function against an ordered list of expected values 
+ * Tests multiple calls of the function against an ordered list of expected values
  * @param  {[array]} expected An array of ordered expected outcomes.  Accepts primitive values, objects, and functions.
  */
 SocketTester.prototype.shouldBeCalledNTimesWith = function(expected){

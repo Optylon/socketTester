@@ -31,7 +31,7 @@ describe('Sockets', function () {
       }
     };
 
-    var client2 = { 
+    var client2 = {
       emit: {
         'join room': room,
         'message': 'test'
@@ -43,7 +43,7 @@ describe('Sockets', function () {
         'message': function(msg){
           expect(msg).to.equal('test');
         }
-      }, 
+      },
       emit: {
         'join room': room,
         'message': 'test'
@@ -73,7 +73,8 @@ describe('Sockets', function () {
           }
         };
 
-        socketTester.run([client1, client2], done);
+        socketTester.setup([client1, client2]);
+        socketTester.test(done);
       });
     });
 
@@ -103,7 +104,8 @@ describe('Sockets', function () {
           }
         };
 
-        socketTester.run([client1, client2, client3], done);
+        socketTester.setup([client1, client2, client3]);
+        socketTester.test(done);
       });
     });
 
@@ -132,7 +134,8 @@ describe('Sockets', function () {
           }
         };
 
-        socketTester.run([client1, client2, client3], done);
+        socketTester.setup([client1, client2, client3]);
+        socketTester.test(done);
       });
     });
 
@@ -161,7 +164,8 @@ describe('Sockets', function () {
           }
         };
 
-        socketTester.run([client1, client2, client3], done);
+        socketTester.setup([client1, client2, client3]);
+        socketTester.test(done);
       });
 
       it('should test functions called n times with object values', function(done){
@@ -222,7 +226,8 @@ describe('Sockets', function () {
           }
         };
 
-        socketTester.run([client1, client2, client3], done);
+        socketTester.setup([client1, client2, client3]);
+        socketTester.test(done);
       });
     });
   });
@@ -247,7 +252,8 @@ describe('Emit Event Helpers', function () {
         }
       };
 
-      socketTester.run([client1, client2], done);
+      socketTester.setup([client1, client2]);
+      socketTester.test(done);
     });
   });
 

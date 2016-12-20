@@ -4,7 +4,9 @@ Socket-tester is an easy to use tool for testing Socket.io code with Mocha.  Soc
 
 It is designed to work with Mocha as a test framework and socket-io.client to manage creating client connections.
 
-Check out the [Github Repo](https://github.com/alexzywiak/socketTester)
+[This fork](https://github.com/Optylon/socketTester) split the `run` function into two (`setup` and `test`) in order to make the integration with other tools (namely supertest) easier.
+
+Check out the original [Github Repo](https://github.com/alexzywiak/socketTester)
 
 ## Introduction
 
