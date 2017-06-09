@@ -97,7 +97,7 @@ SocketTester.prototype.test = function(done){
 SocketTester.prototype.testPromise = function(){
 
   return delay(this.timeout)
-  .then(() => {
+  .then(function() {
       var self = this;
       this.testConditions.forEach(function(test){
         try{
@@ -109,7 +109,7 @@ SocketTester.prototype.testPromise = function(){
         }
       });
       this.clearConnections();
-    }.bind(this);
+    }.bind(this));
 };
 
 /**
