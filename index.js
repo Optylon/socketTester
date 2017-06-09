@@ -1,4 +1,12 @@
 var expect = require('chai').expect;
+var Promise = require('bluebird');
+
+/** Delay in ms (promise) */
+function delay(t) {
+  return new Promise(function(resolve) {
+      setTimeout(resolve, t)
+  });
+}
 
 /**
  * Constructor Function
@@ -80,6 +88,28 @@ SocketTester.prototype.test = function(done){
   } else {
     this.clearConnections();
   }
+};
+
+/**
+ * Triggers events.
+ * @param  {Function} done    Mocha done function
+ */
+SocketTester.prototype.testPromise = function(){
+
+  return delay(this.timeout)
+  .then(() => {
+      var self = this;
+      this.testConditions.forEach(function(test){
+        try{
+          test();
+        }
+        catch(e) {
+          self.clearConnections();
+          throw new Error(e);
+        }
+      });
+      this.clearConnections();
+    }.bind(this);
 };
 
 /**
